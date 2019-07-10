@@ -46,7 +46,7 @@ public class HomeController {
 	}
 	
 	
-	//-----------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------내가한거
 //	@RequestMapping(value="/signin",  method = RequestMethod.GET)
 //	public String signinGet(Model model) {
 //		logger.info("로그인페이지");
