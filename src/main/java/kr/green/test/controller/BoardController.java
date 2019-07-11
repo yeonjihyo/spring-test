@@ -37,8 +37,7 @@ public class BoardController {
 	@RequestMapping(value="board/display", method=RequestMethod.GET)
 	public String boardDisplayGet(Model model, Integer num) {
 		
-		
-		
+		//서비스에게 번호를 알려주면서 이 번호와 일치하는 게시글을 가져오라고 일을 시킴
 		BoardVO bVo=boardService.getBoard(num);
 		System.out.println(bVo);
 		
