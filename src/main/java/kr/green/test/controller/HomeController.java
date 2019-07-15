@@ -32,12 +32,13 @@ public class HomeController {
 		return "home";
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id, String pw) {
+	public String homePost(Model model, String id, String pw) {
 		logger.info("로그인 진행 중");
 		MemberVO user = memberService.signin(id,pw); 
 		if( user != null) {
 			logger.info("로그인 성공");
 			logger.info(user.toString());
+			model.addAttribute("user",user);//모델에 유저 정보를 담아서 보냄 
 		}else {
 			logger.info("로그인 실패");
 		}
@@ -45,24 +46,6 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	
-	//-----------------------------------------------------------------------------내가한거
-//	@RequestMapping(value="/signin",  method = RequestMethod.GET)
-//	public String signinGet(Model model) {
-//		logger.info("로그인페이지");
-//		
-//		return "/signin";
-//	}
-//	@RequestMapping(value="/signin",  method = RequestMethod.POST)
-//	public String signinPost(MemberVo mVo) {
-//		logger.info("로그인페이지 진행중");
-//		System.out.println(mVo);
-//		if(memberService.signin(mVo)) {
-//			return "redirect:/";
-//		}
-//		return "redirect:/signin";
-//	}
-	
-	
+
 	
 }

@@ -1,3 +1,4 @@
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,15 +8,14 @@
 </head>
 <body>
 <h1>
-	메인페이지 
+	로그인
+	${user}
 </h1>
-
-<P>  The time on the server is ${serverTime}. </P>
 <form method="post">
-	<input type="text" name="id">
-	<input type="text" name="pw">
+	아이디<input type="text" name="id"><br>
+	비밀번호<input type="password" name="pw"><br>
 	<button>로그인</button>
 </form>
-${email}
+
 </body>
 </html>
