@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+<!-- 공통으로 들어가는 jsp를 따로 관리할때 불러오는 코드 -->
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"></jsp:include>
 </head>
 <body>
 	<h1>게시판</h1>
@@ -33,6 +35,9 @@
 			</tr>
 		</c:forEach>	
 	</table>
+	<a href="<%=request.getContextPath()%>/board/register">
+		<button type="button" class="btn btn-outline-danger">등록</button>
+	</a>
 	
 </body>
 </html>

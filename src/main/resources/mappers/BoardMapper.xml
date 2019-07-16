@@ -6,7 +6,17 @@
   <select id="boardList" resultType="kr.green.test.vo.BoardVO">
     select * from board;
   </select>
-  <select id="getBoardNum" resultType="kr.green.test.vo.BoardVO">
+  <select id="getBoard" resultType="kr.green.test.vo.BoardVO">
   	select * from board where num=#{num};
   </select>
+  <update id="updateViews">
+	update board set views= views+1 where num=#{num};
+  </update>
+  <insert id="registerBoard">
+  	insert into board (title, contents, writer, file)
+  	values(#{title},#{contents},#{writer},#{file});
+  </insert>
+  <update id="modifyBoard">
+	update board set title=#{title},contents=#{contents},file=#{file} where num=#{num};
+  </update>
 </mapper>

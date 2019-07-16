@@ -9,6 +9,14 @@ public interface BoardDAO {
 
 	ArrayList<BoardVO> boardList();
 
-	BoardVO getBoardNum(Integer num);
+	BoardVO getBoard(Integer num);
+
+	void updateViews(Integer num);
+
+	void registerBoard(BoardVO bVo);
+
+	void modifyBoard(BoardVO bVo);
+
+
 
 }
