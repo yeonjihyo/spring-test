@@ -57,4 +57,20 @@ public class BoardServiceImp implements BoardService {
 		boardDao.modifyBoard(bVo);
 		
 	}
+
+	@Override
+	public void deleteBoard(Integer num) {
+		boardDao.deleteBoard(num);
+		
+	}
+
+	@Override
+	public boolean isWriter(HttpServletRequest r, Integer num) {//HttpServletRequest r : 현재열려있는서버라고 생각
+		MemberVO user = (MemberVO)r.getSession().getAttribute("user");//현재 열려 있는 서버의 세션을 가져와서 세션의 user라는 속성을 추가한다   
+		BoardVO board=boardDao.getBoard(num);
+		if(user !=null && board !=null && user.getId().equals(board.getWriter())) {
+			return true;
+		}
+		return false;
+	}
 }

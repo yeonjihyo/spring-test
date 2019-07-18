@@ -18,6 +18,10 @@ public interface BoardService {
 
 	void modifyBoard(BoardVO bVo);
 
+	void deleteBoard(Integer num);
+
+	boolean isWriter(HttpServletRequest r, Integer num);
+
 
 
 }

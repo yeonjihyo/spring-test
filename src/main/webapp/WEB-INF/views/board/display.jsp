@@ -44,10 +44,14 @@
 		<a href="<%=request.getContextPath()%>/board/register">
 			<button type="button" class="btn btn-outline-danger">등록</button>
 		</a>
+		<c:if test="${user ne null && user.id eq board.writer}">
 		<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><!-- 수정하려면 게시판 번호가 필요  -->
 			<button type="button" class="btn btn-outline-danger">수정</button>
 		</a>
-		
+		<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><!-- 수정하려면 게시판 번호가 필요  -->
+			<button type="button" class="btn btn-outline-danger">삭제</button>
+		</a>
+		</c:if>
 	</div>
 	
 </body>

@@ -63,8 +63,12 @@ public class BoardController {
 	}
 	//게시글 수정 
 	@RequestMapping(value="board/modify", method=RequestMethod.GET)
-	public String boardModifyGet(Model model, Integer num) {
+	public String boardModifyGet(Model model, Integer num, HttpServletRequest r) {
 		System.out.println(num);
+		if(!boardService.isWriter(r,num)) {
+			model.addAttribute("num",num);
+			return "redirect:/board/list";
+		}
 		BoardVO bVo=boardService.getBoard(num);
 		model.addAttribute("board",bVo);
 		
@@ -78,5 +82,12 @@ public class BoardController {
 		
 		return "redirect:/board/display";
 	}
-		
+	//게시글 삭제 
+	@RequestMapping(value="board/delete", method=RequestMethod.GET)
+	public String boardDeleteGet(Model model, Integer num, HttpServletRequest r) {
+		if(boardService.isWriter(r,num)) {
+			boardService.deleteBoard(num);
+		}
+		return "redirect:/board/list";
+	}	
 }
