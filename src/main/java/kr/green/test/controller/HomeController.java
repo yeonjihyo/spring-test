@@ -56,6 +56,19 @@ public class HomeController {
 		r.getSession().removeAttribute("user");
 		return "redirect:/";
 	}
-
+	
+	//회원가입
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signupGet() {
+		logger.info("회원가입 페이지");
+		
+		return "signup";
+	}
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String signupPost(MemberVO mVo) {
+		logger.info("회원가입 진행중");
+		memberService.signup(mVo);
+		return "redirect:/";
+	}
 	
 }

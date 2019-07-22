@@ -7,6 +7,9 @@ public interface MemberService {
 
 	MemberVO signin(String id, String pw);
 
-//	boolean signin(MemberVO mVo);
+	void signup(MemberVO mVo);
+
+
+
 
 }
