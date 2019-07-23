@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.green.test.pagination.Criteria;
+import kr.green.test.pagination.PageMaker;
 import kr.green.test.service.BoardService;
 import kr.green.test.vo.BoardVO;
 
@@ -20,18 +22,29 @@ public class BoardController {
 	BoardService boardService;
 	//게시판
 	@RequestMapping(value = "board/list", method = RequestMethod.GET)//value가 의미하는거는 uri의 경로
-	public String boardListGet(Model model) {
-		ArrayList<BoardVO> boardList=boardService.getBoardList();
+	public String boardListGet(Model model, Criteria cri) {
+		//cri.setPerPageNum(5);//게시글의갯수
+		//게시판 정보를 현재 페이지를 기준으로 가져오기    
+		ArrayList<BoardVO> boardList=boardService.getBoardList(cri);
 		//new를 쓰지 않는 이유: 매퍼에서 만들어서 넘겨주기 때문에 
 		
+		PageMaker pm=new PageMaker();//기본생성자는 자동으로 생성되기 때문에 pagemaker에 새성자가 없어도 불러올수 있다 
+		//System.out.println(cri);
+		
+		pm.setCriteria(cri);//현재 페이지
+		pm.setDisplayPageNum(5);//페이지들의 갯수?
+		int total=boardService.totalCount(cri); //총 컨텐츠의 갯수 
+		pm.setTotalCount(total);
+		
+		System.out.println(pm);
 		//jsp를 맨나중에 작성하는데 이때 model.addAttribute("board",boardList );에 담기는지 확인하기 위해 
 		//향상된for문을 통해 서버를 돌렸을때 제대로 되는지 콘솔로 확인후 제대로 되면 jsp작성
 		for(BoardVO tmp:boardList) {
-			System.out.println(tmp);
+			//System.out.println(tmp);
 		}
 		
 		model.addAttribute("board",boardList );
-		
+		model.addAttribute("pageMaker", pm);
 		return "board/list";
 		//WEB-INF/views/뒤에 오는거라 위에와 의미가 다름 보드앞에 /붙으면 안됨
 		//앞에확인하는 방법은 servlet-context에서 보면 WEB-INF/views/로 뒤에 /가 붙어 있기 떄문에 보드앞에/붙이면안됨

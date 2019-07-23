@@ -9,10 +9,30 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- 공통으로 들어가는 jsp를 따로 관리할때 불러오는 코드 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/common/nav.jsp"></jsp:include>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#perPageNum').change(function(){
+			location.href 
+				= '<%=request.getContextPath()%>/board/list?perPageNum=' + $(this).val();
+		})
+	})
+	//스크립트에서 위치를 바꿔줄때
+	//location.href='가고싶은 uri'
+</script>
 </head>
+
 <body>
+<jsp:include page="/WEB-INF/views/common/nav.jsp"></jsp:include>
 	<h1>게시판</h1>
+	<div class="form-group col-3 float-right">
+  <select class="form-control" id="perPageNum">
+    <option value="5" <c:if test="${pageMaker.criteria.perPageNum ==5 }">selected</c:if>>5개씩보기</option>
+    <option value="10" <c:if test="${pageMaker.criteria.perPageNum ==10 }">selected</c:if>>10개씩보기</option>
+    <option value="15" <c:if test="${pageMaker.criteria.perPageNum ==15 }">selected</c:if>>15개씩보기</option>
+    <option value="20" <c:if test="${pageMaker.criteria.perPageNum ==20}">selected</c:if>>20개씩보기</option>
+  </select>
+</div>
 	<table class="table">
 		<tr>
 			<th width="5%">번호</th>
@@ -38,6 +58,30 @@
 	<a href="<%=request.getContextPath()%>/board/register">
 		<button type="button" class="btn btn-outline-danger">등록</button>
 	</a>
-	
+	<ul class="pagination" style="justify-content: center;">
+	    <c:if test="${pageMaker.prev}">
+	        <li class="page-item">
+	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.startPage-1}&perPageNum=${pageMaker.criteria.perPageNum}">Previous</a>
+	        </li>
+	    </c:if>
+	    <!-- 현재 페이지 선택되게 하는  -->
+	    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
+	    	<c:if test="${pageMaker.criteria.page == index}">
+		        <li class="page-item active">
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}">${index}</a>
+		        </li>
+	        </c:if>
+	        <c:if test="${pageMaker.criteria.page != index}">
+		        <li class="page-item">
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}">${index}</a>
+		        </li>
+	        </c:if>
+	    </c:forEach>
+	    <c:if test="${pageMaker.next}">
+	        <li class="page-item">
+	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.endPage+1}&perPageNum=${pageMaker.criteria.perPageNum}">Next</a>
+	        </li>
+	    </c:if>
+	</ul>
 </body>
 </html>
