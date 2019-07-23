@@ -1,0 +1,22 @@
+﻿Criteria클래스 생성
+-멤버변수
+-getter,setter
+-생성자
+-getPageStart()라는 getter살펴보기 
+=>쿼리문에서 limit에 들어가야할 정보를 계산하기 위해
+
+PageMaker클래스 생성
+-멤버변수
+-getter,setter
+-toString
+-calcDate()함수
+  -endPage를 계산하기 위해 displayPageNum
+-setTotalCount()함수
+-생성자 없음 
+=>멤버변수의 초기값이 각 자료형의 기본값으로 초기화 된다
+=>totalCount변수와 displayPageNum변수가 중요
+-calcDate()함수가 setTotalCount()함수에 의해 호출이 되고 
+  calcDate()함수는 totalCount변수와 displayPageNum변수가 필요 하다
+-그런데 totalCount변수는 calcDate()함수가 호출도기 전에 설정되므로 
+신경안써도 되지만 displayPageNum은 신경써야 한다
+=>setTotalCount()가 호출되기 전에 setDisplayPageNum()이 호출되어야 한다 
