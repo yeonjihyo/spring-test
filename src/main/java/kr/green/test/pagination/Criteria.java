@@ -6,6 +6,24 @@ public class Criteria {
 		//한 페이지 당 컨텐츠 갯수
 		private int perPageNum;
 		//Criteria 디폴트 생성자 : 현재 페이지를 1페이지로, 한 페이지에 10개의 컨텐츠
+		
+		//검색기능을 위한 멤버변수 추가 및 getter,setter 추가 
+		private String search;
+		private String type;
+
+		public String getSearch() {
+		    return search;
+		}
+		public void setSearch(String search) {
+		    this.search = search;
+		}
+		public String getType() {
+		    return type;
+		}
+		public void setType(String type) {
+		    this.type = type;
+		}
+		
 		public Criteria() {
 			this.page = 1;
 			this.perPageNum = 10;
@@ -34,9 +52,11 @@ public class Criteria {
 			else
 				this.perPageNum = perPageNum;
 		}
+		
 		@Override
 		public String toString() {
-			return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+			return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", search=" + search + ", type=" + type
+					+ "]";
 		}
 		/* 쿼리문에서 limit에 사용되는 인덱스를 계산하는 getter */
 		public int getPageStart() {

@@ -26,13 +26,13 @@
 <jsp:include page="/WEB-INF/views/common/nav.jsp"></jsp:include>
 	<h1>게시판</h1>
 	<div class="form-group col-3 float-right">
-  <select class="form-control" id="perPageNum">
-    <option value="5" <c:if test="${pageMaker.criteria.perPageNum ==5 }">selected</c:if>>5개씩보기</option>
-    <option value="10" <c:if test="${pageMaker.criteria.perPageNum ==10 }">selected</c:if>>10개씩보기</option>
-    <option value="15" <c:if test="${pageMaker.criteria.perPageNum ==15 }">selected</c:if>>15개씩보기</option>
-    <option value="20" <c:if test="${pageMaker.criteria.perPageNum ==20}">selected</c:if>>20개씩보기</option>
-  </select>
-</div>
+	  <select class="form-control" id="perPageNum">
+	    <option value="5" <c:if test="${pageMaker.criteria.perPageNum ==5}">selected</c:if>>5개씩보기</option>
+	    <option value="10" <c:if test="${pageMaker.criteria.perPageNum ==10}">selected</c:if>>10개씩보기</option>
+	    <option value="15" <c:if test="${pageMaker.criteria.perPageNum ==15}">selected</c:if>>15개씩보기</option>
+	    <option value="20" <c:if test="${pageMaker.criteria.perPageNum ==20}">selected</c:if>>20개씩보기</option>
+	  </select>
+	</div>
 	<table class="table">
 		<tr>
 			<th width="5%">번호</th>
@@ -61,27 +61,39 @@
 	<ul class="pagination" style="justify-content: center;">
 	    <c:if test="${pageMaker.prev}">
 	        <li class="page-item">
-	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.startPage-1}&perPageNum=${pageMaker.criteria.perPageNum}">Previous</a>
+	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.startPage-1}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">Previous</a>
 	        </li>
 	    </c:if>
 	    <!-- 현재 페이지 선택되게 하는  -->
 	    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
 	    	<c:if test="${pageMaker.criteria.page == index}">
 		        <li class="page-item active">
-		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}">${index}</a>
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${index}</a>
 		        </li>
 	        </c:if>
 	        <c:if test="${pageMaker.criteria.page != index}">
 		        <li class="page-item">
-		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}">${index}</a>
+		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${index}</a>
 		        </li>
 	        </c:if>
 	    </c:forEach>
 	    <c:if test="${pageMaker.next}">
 	        <li class="page-item">
-	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.endPage+1}&perPageNum=${pageMaker.criteria.perPageNum}">Next</a>
+	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.endPage+1}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">Next</a>
 	        </li>
 	    </c:if>
 	</ul>
+	<form action="<%=request.getContextPath()%>/board/list">
+		<div class="form-group  m-auto clearfix col-9">
+		  <select class="form-control col-4 float-left" name="type">
+		    <option value="0">선택</option>
+		    <option value="1" <c:if test="${pageMaker.criteria.type ==1}">selected</c:if>>제목</option>
+		    <option value="2" <c:if test="${pageMaker.criteria.type ==2}">selected</c:if>>내용</option>
+		    <option value="3" <c:if test="${pageMaker.criteria.type ==3}">selected</c:if>>작성자</option>
+		  </select>
+		  <input type="text" class=" float-left col-4" value="${pageMaker.criteria.search}" name="search">
+		  <button type="submit" class="btn btn-outline-danger float-left col-4">검색</button>
+		</div>
+	</form>
 </body>
 </html>
