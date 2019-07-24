@@ -38,7 +38,7 @@
 		  <label>첨부파일</label>
 		  <input type="text" class="form-control" name="file" value="${board.file}" readonly>
 		</div>
-		<a href="<%=request.getContextPath()%>/board/list">
+		<a href="<%=request.getContextPath()%>/board/list?page=${cri.page}&perPageNum=${cri.perPageNum}&search=${cri.search}&type=${cri.type}">
 			<button type="button" class="btn btn-outline-danger">목록</button>
 		</a>
 		<a href="<%=request.getContextPath()%>/board/register">

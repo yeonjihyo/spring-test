@@ -13,8 +13,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#perPageNum').change(function(){
+			var search=$('input[name=search]').val();
+			var type=$('select[name=type]').val();
 			location.href 
-				= '<%=request.getContextPath()%>/board/list?perPageNum=' + $(this).val();
+				= '<%=request.getContextPath()%>/board/list?perPageNum=' + $(this).val()+'&type='+ type +'&search='+search ;
 		})
 	})
 	//스크립트에서 위치를 바꿔줄때
@@ -47,7 +49,7 @@
 		<!-- items에서 리스트를 하나씩 끄집어 내서 board에 저장--> 
 			<tr>
 				<th>${tmp.num}</th> <!-- .뒤는 getter를 호출-->
-				<th><a href="<%=request.getContextPath()%>/board/display?num=${tmp.num}">${tmp.title}</a></th>
+				<th><a href="<%=request.getContextPath()%>/board/display?num=${tmp.num}&page=${pageMaker.criteria.page}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${tmp.title}</a></th>
 				<!-- ?는 데이터를 전송하는 역할 -->
 				<th>${tmp.writer}</th>
 				<th>${tmp.registered}</th>
@@ -58,13 +60,13 @@
 	<a href="<%=request.getContextPath()%>/board/register">
 		<button type="button" class="btn btn-outline-danger">등록</button>
 	</a>
+	<!-- 페이지네이션에서 검색어와타입유지하기위해 &search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type} 추가함 -->
 	<ul class="pagination" style="justify-content: center;">
 	    <c:if test="${pageMaker.prev}">
 	        <li class="page-item">
 	            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pageMaker.startPage-1}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">Previous</a>
 	        </li>
 	    </c:if>
-	    <!-- 현재 페이지 선택되게 하는  -->
 	    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
 	    	<c:if test="${pageMaker.criteria.page == index}">
 		        <li class="page-item active">
@@ -85,8 +87,7 @@
 	</ul>
 	<form action="<%=request.getContextPath()%>/board/list" method="get">
 		<div class="form-group  m-auto clearfix col-9">
-		  <select class="form-control col-4 float-left" name="type">
-		    <option value="0">선택</option><!-- option내용과 내가보내야하는값이다른경우에 value 씀  -->
+		  <select class="form-control col-4 float-left" name="type"><!-- option내용과 내가보내야하는값이다른경우에 value 씀  -->
 		    <option value="1" <c:if test="${pageMaker.criteria.type ==1}">selected</c:if>>제목</option>
 		    <option value="2" <c:if test="${pageMaker.criteria.type ==2}">selected</c:if>>내용</option>
 		    <option value="3" <c:if test="${pageMaker.criteria.type ==3}">selected</c:if>>작성자</option>

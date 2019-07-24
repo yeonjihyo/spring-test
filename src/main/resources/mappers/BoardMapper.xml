@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.test.dao.BoardDAO">
   <select id="boardList" resultType="kr.green.test.vo.BoardVO">
-    select * from board 
-    where valid='I'
+    select * 
+    from board where valid='I'
     	<if test="type == 1">and title like concat('%',#{search},'%')</if>
 		<if test="type == 2">and contents like concat('%',#{search},'%')</if>
 		<if test="type == 3">and writer like concat('%',#{search},'%')</if>
@@ -31,8 +31,9 @@
 	where num=#{num};
   </update>
  	<select id="totalCount" resultType="int">
- 		select count(*) from board 
- 		where valid='I'
+ 		select count(*) 
+ 			from board 
+ 			where valid='I'
  			<if test="type == 1">and title like concat('%',#{search},'%')</if>
  			<if test="type == 2">and contents like concat('%',#{search},'%')</if>
  			<if test="type == 3">and writer like concat('%',#{search},'%')</if>

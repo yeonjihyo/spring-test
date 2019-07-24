@@ -76,7 +76,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int totalCount(Criteria cri) {
+	public int totalCount(Criteria cri) {//Criteria cri를 넣어줌으로써 type와search가 들어감 
 		
 		return boardDao.totalCount(cri);
 	}

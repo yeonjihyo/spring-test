@@ -33,7 +33,7 @@ public class BoardController {
 		
 		pm.setCriteria(cri);//현재 페이지
 		pm.setDisplayPageNum(5);//페이지들의 갯수?
-		int total=boardService.totalCount(cri); //총 컨텐츠의 갯수 
+		int total=boardService.totalCount(cri); //총 컨텐츠의 갯수 이나 cri를 넣어줌으로써 type와search가 들어감 
 		pm.setTotalCount(total);
 		
 		System.out.println(pm);
@@ -51,7 +51,7 @@ public class BoardController {
 	}
 	//게시글
 	@RequestMapping(value="board/display", method=RequestMethod.GET)
-	public String boardDisplayGet(Model model, Integer num) {
+	public String boardDisplayGet(Model model, Integer num, Criteria cri) {
 		//조회수 증가 bvo앞에 쓰는 이유는 먼저 조회수를 올리고 게시글을 가져오려고 
 		boardService.updateViews(num);
 		//서비스에게 번호를 알려주면서 이 번호와 일치하는 게시글을 가져오라고 일을 시킴
@@ -59,7 +59,7 @@ public class BoardController {
 		System.out.println(bVo);
 		
 		model.addAttribute("board", bVo);
-		
+		model.addAttribute("cri", cri);
 		return "board/display";
 	}
 	//게시판등록
