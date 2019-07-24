@@ -86,7 +86,7 @@
 	<form action="<%=request.getContextPath()%>/board/list" method="get">
 		<div class="form-group  m-auto clearfix col-9">
 		  <select class="form-control col-4 float-left" name="type">
-		    <option value="0">선택</option><!-- 내가보내야하는값이다른경우에 value씀  -->
+		    <option value="0">선택</option><!-- option내용과 내가보내야하는값이다른경우에 value 씀  -->
 		    <option value="1" <c:if test="${pageMaker.criteria.type ==1}">selected</c:if>>제목</option>
 		    <option value="2" <c:if test="${pageMaker.criteria.type ==2}">selected</c:if>>내용</option>
 		    <option value="3" <c:if test="${pageMaker.criteria.type ==3}">selected</c:if>>작성자</option>
