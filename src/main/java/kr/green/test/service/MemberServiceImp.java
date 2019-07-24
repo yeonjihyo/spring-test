@@ -39,5 +39,17 @@ public class MemberServiceImp implements MemberService{
 	}
 
 
+	@Override
+	public boolean isId(String id) {
+		if(memberDao.getMember(id) == null){
+			return false;
+		}
+		return true;
+	}
+
+
+	
+
+
 	
 }

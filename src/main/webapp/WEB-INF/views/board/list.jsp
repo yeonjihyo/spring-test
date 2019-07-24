@@ -49,7 +49,7 @@
 		<!-- items에서 리스트를 하나씩 끄집어 내서 board에 저장--> 
 			<tr>
 				<th>${tmp.num}</th> <!-- .뒤는 getter를 호출-->
-				<th><a href="<%=request.getContextPath()%>/board/display?num=${tmp.num}&page=${pageMaker.criteria.page}&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${tmp.title}</a></th>
+				<th><a href="<%=request.getContextPath()%>/board/display?num=${tmp.num}&page=${pageMaker.criteria.page }&perPageNum=${pageMaker.criteria.perPageNum}&search=${pageMaker.criteria.search}&type=${pageMaker.criteria.type}">${tmp.title}</a></th>
 				<!-- ?는 데이터를 전송하는 역할 -->
 				<th>${tmp.writer}</th>
 				<th>${tmp.registered}</th>

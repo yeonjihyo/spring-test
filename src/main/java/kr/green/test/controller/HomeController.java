@@ -2,7 +2,9 @@ package kr.green.test.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.green.test.dao.MemberDAO;
 import kr.green.test.service.MemberService;
@@ -67,8 +71,22 @@ public class HomeController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signupPost(MemberVO mVo) {
 		logger.info("회원가입 진행중");
+		
 		memberService.signup(mVo);
 		return "redirect:/";
+	}
+	
+	//아이디 중복체크
+	@RequestMapping(value ="/dup")
+	@ResponseBody
+	public Map<Object, Object> idcheck(@RequestBody String id){
+
+	   Map<Object, Object> map = new HashMap<Object, Object>();   
+	   
+	   boolean isId = memberService.isId(id);
+	   map.put("isId", isId);
+	   System.out.println(id);
+	   return map;
 	}
 	
 }

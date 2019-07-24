@@ -9,6 +9,10 @@ public interface MemberService {
 
 	void signup(MemberVO mVo);
 
+	boolean isId(String id);
+
+	
+
 
 
 

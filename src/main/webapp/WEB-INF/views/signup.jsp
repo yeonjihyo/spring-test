@@ -43,10 +43,31 @@
 			}
 			return false;
 		}
+		//var isCheck = false;//가입성공여부를 위해 ,아이디가 있으면 가입을 막아주려고 전역변수 선언
+		//-1: 중복체크를해야하는경우 0: 회원가입이가능한경우 1:이미회원이라 회원가입불가능
+		var isMember=-1;
 		$(document).ready(function(){
+			//아이디 중복검사를 통해 회원가입 가능한 아이디를 입력했더라도 이후에 아이디창을 통해 
+			//아이디 값을 바꾼다면 다시 중복검사를 해야하기 때문에 
+			//isMember변수값을 -1로 한다 
+			$('#id').change(function(){
+				isMember = -1;
+			})
+			
 			$('#signup').submit(function(){
 				if(!checkLength('#signup input[name=id]',8,13)){
 					alert('아이디는 8~13자리입니다.');
+					return false;
+				}
+		//		if(!isCheck){
+		//			alert('아이디 중복검사를 하세요 ')
+		//			return false;
+		//		}
+				if(isMember ==-1){
+					alert('아이디 중복검사를 확인하세요 ')
+					return false;
+				}else if(isMember ==1){
+					alert('이미 가입된 아이디입니다. 다른 아이디를 입력하세요  ')
 					return false;
 				}
 				if(!checkLength('#signup input[name=pw]',8,13)){
@@ -64,6 +85,31 @@
 				alert('회원가입에 성공했습니다.');
 				return true;
 			});
+			$('#dup').click(function(){
+				var id = $("#id").val();
+				
+				$.ajax({
+			        async:true, 
+			        type:'POST', //get,post중 선택
+			        data:id, //서버에 요청시 보낼 매개변수
+			        url:"<%=request.getContextPath()%>/dup", //요청할 URL
+			        dataType:"json", //응답받을 데이터의 타입, json을 사용하기 위해 pom.xml에 의존성을 추가해야함
+			        contentType:"application/json; charset=UTF-8",
+			        success : function(data){
+			        	console.log(data.isId);
+			            if(!data.isId){
+			            	alert('회원가입이 가능한 아이디입니다');
+			            	//return true;
+			            	isMember = 0;
+			            }else{
+			            	alert('이미 가입된 회원입니다.');
+			            	//return false;
+			            	isMember = 1;
+			            }
+			            	
+			        }
+			    });
+			})
 		});	
 	</script>
 </head>
@@ -74,7 +120,7 @@
 			<form method="post" action="<%=request.getContextPath()%>/signup" id="signup"><!-- 개인정보니까 post로  액션따로지정안하면 현재페이지로?????-->
 				<div class="row">
 					<label class="col-4" >아이디</label>
-					<input type="text"class="form-control col-7" name="id" placeholder="아이디">
+					<input type="text"class="form-control col-7" name="id" id="id" placeholder="아이디">
 				</div>
 				<div>
 					<button type="button" class="btn btn-outline-success offset-4 col-7" id="dup">아이디 중복확인</button>
