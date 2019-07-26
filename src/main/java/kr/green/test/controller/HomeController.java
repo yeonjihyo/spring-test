@@ -99,9 +99,12 @@ public class HomeController {
 	
 	//회원정보수정
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
-	public String memberModifyGet() {
+	public String memberModifyGet(Model model, Boolean success) {
+		//처음에 수정페이지들어가면 정보가 없기떄문에 null값이 들어가기때문에 Boolean 사용
+		//Boolean : boolean은 null값을 저장할 수 없기 때문에  null값까지 처지 가능한 래퍼클래스 사용
+		 
 		logger.info("회원정보수정 페이지");
-		
+		model.addAttribute("success", success);
 		return "member/modify";
 	}
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
@@ -112,7 +115,7 @@ public class HomeController {
 		MemberVO nUser = memberService.modify(user,oldPw);
 		boolean t=memberService.updateUserToSession(r,nUser);
 		System.out.println(nUser);
-		
+		model.addAttribute("success", t);//
 		return "redirect:/member/modify";
 	}
 }

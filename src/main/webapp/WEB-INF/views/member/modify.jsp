@@ -68,6 +68,27 @@
 				alert('회원정보수정을 요청중입니다.');
 				return true;
 			});
+			//var success = ${sucess};(x)
+			//var sucess = ;
+			/* var success;
+			if(${success ne null}){
+				success = ${success};
+			} */
+			
+			if(${success ne null}){//성공이 널이 아닐때 
+				if(${success eq true}){
+					alert('수정이 완료되었습니다.');
+				}else{
+					alert('기존 비밀번호를 잘못 입력하였습니다.');
+				}
+			}
+			$('body').keydown(function(e){
+				//f5의 키값이 116
+				if(e.which ==116){
+					location.href="<%=request.getContextPath()%>/member/modify";
+				}
+				
+			})
 		});	
 	</script>
 </head>
