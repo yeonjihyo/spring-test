@@ -27,6 +27,9 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/nav.jsp"></jsp:include>
 	<h1>게시판</h1>
+	<c:if test="${user ne null}"><!-- 유저가 널이 아니면  -->
+		<a href="<%=request.getContextPath()%>/member/modify" class="float-right">회원정보수정</a>
+	</c:if>
 	<div class="form-group col-3 float-right">
 	  <select class="form-control" id="perPageNum">
 	    <option value="5" <c:if test="${pageMaker.criteria.perPageNum ==5}">selected</c:if>>5개씩보기</option>

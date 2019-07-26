@@ -96,4 +96,23 @@ public class HomeController {
 		
 		return "find";
 	}
+	
+	//회원정보수정
+	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
+	public String memberModifyGet() {
+		logger.info("회원정보수정 페이지");
+		
+		return "member/modify";
+	}
+	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
+	public String memberModifyPost(MemberVO user, String oldPw,HttpServletRequest r,Model model) {
+		logger.info("회원정보수정중");
+		System.out.println(user);
+		System.out.println(oldPw);
+		MemberVO nUser = memberService.modify(user,oldPw);
+		boolean t=memberService.updateUserToSession(r,nUser);
+		System.out.println(nUser);
+		
+		return "redirect:/member/modify";
+	}
 }
