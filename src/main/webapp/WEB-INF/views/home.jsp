@@ -15,6 +15,7 @@
 	아이디 <input type="text" name="id"><br>
 	비밀번호 <input type="password" name="pw"><br>
 	<button>로그인</button>
+	<a href="<%=request.getContextPath()%>/password/find">비밀번호 찾기</a>
 </form>
 
 </body>
