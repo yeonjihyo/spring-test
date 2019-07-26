@@ -89,4 +89,11 @@ public class HomeController {
 	   return map;
 	}
 	
+	//비밀번호찾기
+	@RequestMapping(value = "/password/find")
+	public String passwordFind() {
+		logger.info("비밀번호 찾기 페이지");
+		
+		return "find";
+	}
 }
